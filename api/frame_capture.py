@@ -3,8 +3,7 @@ import win32gui
 import win32ui
 import win32con
 import numpy as np
-import cv2
-import time
+from api.input_simulator import send_w
 
 class FrameCapture(ABC):
     @abstractmethod
@@ -35,21 +34,3 @@ class WindowsFrameCapture(FrameCapture):
         img_array.shape = (bmp_info['bmHeight'], bmp_info['bmWidth'], 4)
 
         return img_array[:, :, :3]
-
-
-def frame_display(frame_capture: FrameCapture):
-    while True: # Infinite loop to continuously capture frames
-        start_time = time.time() # Record the start time of the frame capture
-
-        frame = frame_capture.capture()
-        cv2.imshow("frame", frame)
-
-        end_time = time.time() # Record the end time of the frame capture
-        fps = 1 / (end_time - start_time) # Calculate the FPS
-        print("FPS:", fps) # Print the FPS to the console
-
-        if cv2.waitKey(1) & 0xFF == ord("q"): # Wait for the "q" key to be pressed
-            break
-
-    cv2.destroyAllWindows() # Close the OpenCV window
-    return True
