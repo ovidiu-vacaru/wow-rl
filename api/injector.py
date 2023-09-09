@@ -12,6 +12,5 @@ def get_xyz_coords():
     data = s.recv(12)  # 3 floats * 4 bytes each
 
     values = struct.unpack("3f", data)  # 3f because we are expecting 3 floats
-    print("Received:", values)
     s.close()
-    return values
+    return values[0:2]

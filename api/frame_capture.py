@@ -3,7 +3,6 @@ import win32gui
 import win32ui
 import win32con
 import numpy as np
-from api.input_simulator import send_w
 
 class FrameCapture(ABC):
     @abstractmethod
